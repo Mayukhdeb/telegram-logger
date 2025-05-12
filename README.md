@@ -24,8 +24,8 @@ logger.log(message="Legume resume", timestamp=False)
 
 ## Getting your API token and chat ID
 
-- For your own API token, go to t.me/botfather in telegram and create a new bot
-- For your chat id, go to t.me/userinfobot in telegram
+- For your own API token, go to [t.me/botfather](https://t.me/botfather) in telegram and create a new bot
+- For your chat id, go to [t.me/userinfobot](https://t.me/userinfobot) in telegram
 
 Alternatively, you can also safely store your api token and chat ID in a json and initialize your logger from the filename. This is usually safer for dummies
 
