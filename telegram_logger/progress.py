@@ -12,7 +12,7 @@ class tgtqdm:
         # the progress bar will automatically update
     ```
     """
-    def __init__(self, iterable, json_filename: str = None, api_token: str=None, chat_id: int=None, desc: str = "", **kwargs):
+    def __init__(self, iterable, json_filename: str = None, api_token: str=None, chat_id: int=None, desc: str = "", update_every_n_iters: int = 1):
         self.iterable = iterable
 
         if json_filename is None:
@@ -24,7 +24,7 @@ class tgtqdm:
         self.total = len(iterable) if hasattr(iterable, '__len__') else None
         self.current = 0
         self.desc = desc
-        self.kwargs = kwargs
+        self.update_every_n_iters = update_every_n_iters
 
     def __iter__(self):
         start_time = time.time()
@@ -50,7 +50,6 @@ class tgtqdm:
             if self.total:
                 percent = self.current / self.total
                 percent_text = f"{int(percent * 100):3d}%"
-                # Only compute ETA if current > 0 and current < total
                 if self.current > 0 and self.current < self.total:
                     eta = (elapsed / self.current) * (self.total - self.current)
                 else:
@@ -62,11 +61,13 @@ class tgtqdm:
                 progress_line = f"[{self.current}]"
                 progress_stdout = f"{self.desc}: [{self.current}]" if self.desc else f"[{self.current}]"
 
-            if self.desc:
-                message = f"{self.desc}: {progress_line}"
-            else:
-                message = progress_line
-            self.logger.log(message=message, timestamp=True)
+            # Only log to Telegram every n iterations
+            if self.current % self.update_every_n_iters == 0 or self.current == self.total:
+                if self.desc:
+                    message = f"{self.desc}: {progress_line}"
+                else:
+                    message = progress_line
+                self.logger.log(message=message, timestamp=True)
             print(progress_stdout, end='\r', flush=True)
             yield item
 # No print() at the end; do not move to next line after completion
