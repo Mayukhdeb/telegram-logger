@@ -29,9 +29,9 @@ from telegram_logger import tgtqdm
 
 for i in tgtqdm(
     range(33),
-    api_token="telegram_info.json",
+    api_token="...",
     chat_id=123,
-    desc="skidoodle skadoodle"
+    desc="skidoodle"
 ):
     ## do something
     pass
@@ -44,7 +44,7 @@ If you have a json file then you can also do it like this:
 for i in tgtqdm(
     range(33),
     json_filename="telegram_info.json",
-    desc="running somethig"
+    desc="skadoodle"
 ):
     ## do something
     pass
