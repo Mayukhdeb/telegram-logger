@@ -22,6 +22,34 @@ logger.log(message="Lettuce begin", timestamp=False)
 logger.log(message="Legume resume", timestamp=False)
 ```
 
+Or you can also replace your boring old `tqdm` bar with this:
+
+```python
+from telegram_logger import tgtqdm
+
+for i in tgtqdm(
+    range(33),
+    api_token="telegram_info.json",
+    chat_id=123,
+    desc="skidoodle skadoodle"
+):
+    ## do something
+    pass
+```
+
+If you have a json file then you can also do it like this:
+
+
+```python
+for i in tgtqdm(
+    range(33),
+    json_filename="telegram_info.json",
+    desc="running somethig"
+):
+    ## do something
+    pass
+```
+
 ## Getting your API token and chat ID
 
 - For your own API token, go to [t.me/botfather](https://t.me/botfather) in telegram and create a new bot
