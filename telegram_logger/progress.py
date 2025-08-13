@@ -18,9 +18,9 @@ class tgtqdm:
         if json_filename is None:
             assert api_token is not None, "api_token must be provided"
             assert chat_id is not None, "chat_id must be provided"
-            self.logger = TelegramLogger.from_json(filename=json_filename)
+            self.logger =  TelegramLogger(api_token=api_token, chat_id=chat_id)
         else:
-            self.logger = TelegramLogger(api_token=api_token, chat_id=chat_id)
+            self.logger = TelegramLogger.from_json(filename=json_filename)
         self.total = len(iterable) if hasattr(iterable, '__len__') else None
         self.current = 0
         self.desc = desc
