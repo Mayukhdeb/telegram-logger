@@ -31,7 +31,7 @@ for i in tgtqdm(
     range(33),
     api_token="...",
     chat_id=123,
-    desc="skidoodle"
+    desc="skidoodle",
 ):
     ## do something
     pass
@@ -44,7 +44,8 @@ If you have a json file then you can also do it like this:
 for i in tgtqdm(
     range(33),
     json_filename="telegram_info.json",
-    desc="skadoodle"
+    desc="skadoodle",
+    update_every_n_iters = 10 ## log only every 10 steps
 ):
     ## do something
     pass
