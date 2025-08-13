@@ -30,6 +30,8 @@ class tgtqdm:
         start_time = time.time()
 
         def format_eta(seconds):
+            if seconds is None or seconds < 0:
+                return "ETA: --"
             if seconds >= 3600:
                 hours = int(seconds // 3600)
                 mins = int((seconds % 3600) // 60)
@@ -48,18 +50,23 @@ class tgtqdm:
             if self.total:
                 percent = self.current / self.total
                 percent_text = f"{int(percent * 100):3d}%"
-                if self.current > 0:
-                    eta = elapsed / self.current * (self.total - self.current)
-                    eta_text = format_eta(eta)
+                # Only compute ETA if current > 0 and current < total
+                if self.current > 0 and self.current < self.total:
+                    eta = (elapsed / self.current) * (self.total - self.current)
                 else:
-                    eta_text = "ETA: --"
+                    eta = None
+                eta_text = format_eta(eta)
                 progress_line = f"[{self.current}/{self.total}] {percent_text}\n{eta_text}"
+                progress_stdout = f"{self.desc}: [{self.current}/{self.total}] {percent_text} {eta_text}" if self.desc else f"[{self.current}/{self.total}] {percent_text} {eta_text}"
             else:
                 progress_line = f"[{self.current}]"
+                progress_stdout = f"{self.desc}: [{self.current}]" if self.desc else f"[{self.current}]"
 
             if self.desc:
                 message = f"{self.desc}: {progress_line}"
             else:
                 message = progress_line
             self.logger.log(message=message, timestamp=True)
+            print(progress_stdout, end='\r', flush=True)
             yield item
+# No print() at the end; do not move to next line after completion
