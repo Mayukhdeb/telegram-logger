@@ -17,16 +17,20 @@ release checklist:
 
 setuptools.setup(
     name="tgtqdm",
-    version="0.0.2",
+    version="0.2.0",
     description="watch your scripts go brr on telegram",
     author="a very bored mayukh on a sunday night",
     author_email="",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/mayukhdeb/tgtqdm",
-    packages=setuptools.find_packages(),
-    install_requires=None,
+    packages=setuptools.find_packages(include=["tgtqdm", "tgtqdm.*"]),
+    python_requires=">=3.8",
+    install_requires=["requests>=2.20"],
+    extras_require={"dev": ["pytest>=7", "mypy>=1.0", "types-requests"]},
+    package_data={"tgtqdm": ["py.typed"]},
     classifiers=[
         "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
     ],
 )

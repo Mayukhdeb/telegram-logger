@@ -1,5 +1,36 @@
-__pycache__/
+## credentials. these hold a live bot token, never commit them
+telegram_info.json
+.tgtqdm.json
+## broad safety net: this library's whole config format is json, so an
+## accidentally named creds file stays out of git too. use `git add -f` for a
+## json you genuinely want tracked
 *.json
-tgtqdm.egg-info/
+
+## python
+__pycache__/
+*.py[cod]
+*.so
+
+## packaging
+*.egg-info/
 build/
 dist/
+pip-wheel-metadata/
+
+## tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+## environments
+.venv/
+venv/
+env/
+
+## editors and os
+.DS_Store
+.idea/
+*.swp
